@@ -2,6 +2,10 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { shuffle } from '../utils/shuffle';
 import './ListeningQuiz.css';
 
+const MASCOT_IDLE = '应该选哪个呢？🤔';
+const MASCOT_CORRECT = '你太棒了！🌟';
+const MASCOT_WRONG = '好像不对，再接再厉 💪';
+
 export default function ListeningQuiz({ level, sound, onComplete, onProgress }) {
   const [questions, setQuestions] = useState([]);
   const [current, setCurrent] = useState(0);
@@ -11,6 +15,7 @@ export default function ListeningQuiz({ level, sound, onComplete, onProgress }) 
   const [correctPy, setCorrectPy] = useState(null);
   const [playing, setPlaying] = useState(false);
   const [options, setOptions] = useState([]);
+  const [mascotMsg, setMascotMsg] = useState(MASCOT_IDLE);
   const initialized = useRef(false);
 
   useEffect(() => {
@@ -66,14 +71,17 @@ export default function ListeningQuiz({ level, sound, onComplete, onProgress }) 
     if (opt.py === q.py) {
       sound.correct();
       setScore(prev => prev + 1);
+      setMascotMsg(MASCOT_CORRECT);
     } else {
       sound.wrong();
+      setMascotMsg(MASCOT_WRONG);
     }
 
     setTimeout(() => {
       setAnswered(false);
       setSelectedPy(null);
       setCorrectPy(null);
+      setMascotMsg(MASCOT_IDLE);
       setCurrent(prev => prev + 1);
     }, 1200);
   };
@@ -108,6 +116,10 @@ export default function ListeningQuiz({ level, sound, onComplete, onProgress }) 
             </button>
           );
         })}
+      </div>
+      <div className="quiz-mascot">
+        <img src="/mascot.png" alt="" className="quiz-mascot-img" />
+        <div className="quiz-mascot-bubble">{mascotMsg}</div>
       </div>
     </>
   );
