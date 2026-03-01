@@ -1,0 +1,9 @@
+#screen-reward{background:linear-gradient(180deg,#1a1a3e,#2d1b69);justify-content:center;gap:24px}
+.reward-stars{display:flex;gap:10px;font-size:clamp(48px,12vw,72px);animation:bounce-in .8s cubic-bezier(.68,-.55,.27,1.55) both}
+.reward-stars span{animation:star-pop .5s cubic-bezier(.68,-.55,.27,1.55) both}
+.reward-stars span:nth-child(2){animation-delay:.2s}
+.reward-stars span:nth-child(3){animation-delay:.4s}
+.reward-msg{font-size:clamp(28px,7vw,40px);color:#fff;text-align:center;animation:fade-up .8s ease .5s both}
+.reward-sub{font-size:clamp(16px,4vw,22px);color:rgba(255,255,255,.7);animation:fade-up .8s ease .7s both}
+.btn-continue{font-family:var(--font-cn);font-size:clamp(20px,5vw,26px);padding:14px 44px;border:none;border-radius:50px;background:linear-gradient(135deg,var(--sunny),var(--orange));color:#fff;cursor:pointer;box-shadow:0 4px 15px rgba(255,215,0,.4);animation:fade-up .8s ease .9s both;transition:transform .2s}
+.btn-continue:active{transform:scale(.95)}

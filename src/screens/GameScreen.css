@@ -1,0 +1,7 @@
+#screen-game{background:var(--cream)}
+.game-header{width:100%;padding:16px 20px;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:2px solid rgba(0,0,0,.05);flex-shrink:0;z-index:10}
+.game-title{font-size:clamp(18px,4.5vw,24px);flex:1}
+.game-score{font-size:clamp(16px,4vw,20px);color:var(--coral);display:flex;align-items:center;gap:4px}
+.game-content{flex:1;width:100%;max-width:500px;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+.game-progress{width:100%;display:flex;align-items:center;gap:8px;padding:0 4px}
+.game-progress-text{font-size:14px;color:#888;white-space:nowrap}

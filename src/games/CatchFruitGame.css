@@ -1,0 +1,11 @@
+.catch-prompt{font-size:clamp(18px,4.5vw,24px);color:#666;text-align:center}
+.fall-area{position:relative;width:100%;flex:1;overflow:hidden;border-radius:var(--radius);background:linear-gradient(180deg,#0f0c29 0%,#302b63 40%,#24243e 100%);min-height:300px}
+.fall-area::before{content:'';position:absolute;inset:0;background:radial-gradient(2px 2px at 20% 30%,#fff 50%,transparent),radial-gradient(2px 2px at 60% 10%,#fff 50%,transparent),radial-gradient(1px 1px at 80% 50%,#fff 50%,transparent),radial-gradient(1px 1px at 40% 70%,#fff 50%,transparent),radial-gradient(2px 2px at 90% 80%,#fff 50%,transparent),radial-gradient(1px 1px at 10% 90%,#fff 50%,transparent);opacity:.6;pointer-events:none}
+.fall-item{position:absolute;top:-100px;width:clamp(68px,18vw,85px);height:clamp(84px,22vw,105px);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;z-index:2;transition:filter .2s;animation:fall-down var(--fall-dur,5s) linear var(--fall-delay,0s) forwards;will-change:top}
+.fall-item:active{filter:brightness(1.3)}
+.fall-item .fruit-emoji{font-size:clamp(28px,7vw,38px);filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))}
+.fall-item .fruit-py{font-family:var(--font-py);font-size:clamp(18px,4.5vw,24px);font-weight:700;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.5)}
+.fall-item.caught{animation:item-caught .6s cubic-bezier(.68,-.55,.27,1.55) forwards!important;pointer-events:none}
+.fall-item.wrong-catch{animation:shake .4s ease;pointer-events:none}
+.fall-item.faded{opacity:.25;pointer-events:none}
+.catch-sparkle{position:absolute;font-size:24px;pointer-events:none;animation:sparkle-up .8s ease-out forwards;z-index:10}

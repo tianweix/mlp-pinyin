@@ -1,0 +1,9 @@
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FFF8E7;--coral:#FF6B6B;--teal:#4ECDC4;--sunny:#FFE66D;
+  --purple:#A78BFA;--pink:#FF9A9E;--sky:#45B7D1;--dark:#2D3748;
+  --green:#56ab2f;--blue:#2196F3;--orange:#FF9800;--gold:#FFD700;
+  --radius:20px;--shadow:0 8px 30px rgba(0,0,0,.12);
+  --font-cn:'ZCOOL KuaiLe',cursive;--font-py:'Fredoka',sans-serif;
+}
+html,body{width:100%;height:100%;overflow:hidden;font-family:var(--font-cn);background:var(--cream);color:var(--dark);-webkit-tap-highlight-color:transparent;user-select:none}

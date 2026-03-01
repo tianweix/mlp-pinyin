@@ -1,0 +1,8 @@
+#screen-welcome{background:linear-gradient(180deg,#87CEEB 0%,#E0F7FA 40%,#C8E6C9 70%,#A5D6A7 100%);justify-content:center;gap:20px}
+.welcome-title{font-size:clamp(48px,12vw,80px);background:linear-gradient(135deg,var(--coral),var(--orange),var(--sunny));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.1));animation:bounce-in .8s cubic-bezier(.68,-.55,.27,1.55) both;letter-spacing:4px}
+.welcome-sub{font-size:clamp(16px,4vw,24px);color:#555;animation:fade-up .8s ease .3s both}
+.mascot-container{width:clamp(140px,35vw,200px);height:clamp(140px,35vw,200px);animation:float-y 3s ease-in-out infinite,fade-up .8s ease .1s both;filter:drop-shadow(0 10px 20px rgba(0,0,0,.1))}
+.btn-start{font-family:var(--font-cn);font-size:clamp(22px,5vw,32px);padding:16px 48px;border:none;border-radius:50px;background:linear-gradient(135deg,var(--coral),#FF8E53);color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,107,.4);animation:bounce-in .8s cubic-bezier(.68,-.55,.27,1.55) .5s both;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.btn-start:active{transform:scale(.95)!important;box-shadow:0 3px 10px rgba(255,107,107,.3)}
+.btn-start:hover{transform:scale(1.05);box-shadow:0 8px 25px rgba(255,107,107,.5)}
+.btn-start .shine{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.3) 50%,transparent 60%);animation:shine 3s ease-in-out infinite}

@@ -1,0 +1,9 @@
+.quiz-prompt{font-size:clamp(20px,5vw,28px);text-align:center;color:#666}
+.quiz-speaker{width:100px;height:100px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--purple),#8b5cf6);color:#fff;font-size:48px;cursor:pointer;box-shadow:0 6px 20px rgba(167,139,250,.4);transition:transform .2s;display:flex;align-items:center;justify-content:center;margin:10px 0}
+.quiz-speaker:active{transform:scale(.9)}
+.quiz-speaker.playing{animation:speak-pulse .6s ease-in-out infinite}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%}
+.quiz-option{font-family:var(--font-py);font-size:clamp(28px,7vw,40px);font-weight:700;padding:20px;border-radius:var(--radius);border:3px solid #e8e8e8;background:#fff;cursor:pointer;transition:all .2s;text-align:center;box-shadow:0 4px 10px rgba(0,0,0,.05)}
+.quiz-option:active{transform:scale(.95)}
+.quiz-option.correct{border-color:var(--teal);background:linear-gradient(135deg,#E0F7FA,#B2DFDB);animation:pop .4s ease}
+.quiz-option.wrong{border-color:var(--coral);animation:shake .4s ease}

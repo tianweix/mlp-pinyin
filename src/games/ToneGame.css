@@ -1,0 +1,6 @@
+.tone-display{font-family:var(--font-py);font-size:clamp(60px,18vw,90px);font-weight:700;color:var(--dark)}
+.tone-options{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%}
+.tone-btn{font-family:var(--font-py);font-size:clamp(24px,6vw,36px);font-weight:600;padding:18px;border-radius:var(--radius);border:3px solid #e8e8e8;background:#fff;cursor:pointer;transition:all .2s;text-align:center}
+.tone-btn:active{transform:scale(.95)}
+.tone-btn.correct{border-color:var(--teal);background:#E0F7FA;animation:pop .4s ease}
+.tone-btn.wrong{border-color:var(--coral);animation:shake .4s ease}
