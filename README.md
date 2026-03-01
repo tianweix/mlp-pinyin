@@ -33,6 +33,19 @@ npm run dev
 npm run build
 ```
 
+## 测试
+
+```bash
+# 运行所有测试
+npm test
+
+# 监听模式（文件变化时自动重跑）
+npx vitest
+
+# 生成覆盖率报告（终端 + HTML，自动在浏览器打开）
+npm run coverage
+```
+
 ## 音频文件
 
 音频文件不随代码提交，需本地生成：

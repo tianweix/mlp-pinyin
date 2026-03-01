@@ -98,4 +98,36 @@ describe('useSound', () => {
     expect(() => result.current.click()).not.toThrow();
     expect(() => result.current.celebrate()).not.toThrow();
   });
+
+  it('playFile reuses cached Audio instance for same src', async () => {
+    const { result } = renderHook(() => useSound());
+    result.current.playFile('/audio/test.mp3');
+    result.current.playFile('/audio/test.mp3');
+    expect(Audio).toHaveBeenCalledTimes(1);
+  });
+
+  it('playTone falls back to webkitAudioContext when AudioContext is unavailable', () => {
+    const original = global.AudioContext;
+    global.AudioContext = undefined;
+    const mockWebkit = vi.fn(function () {
+      this.currentTime = 0;
+      this.destination = {};
+      this.createOscillator = vi.fn(() => ({
+        connect: vi.fn(), frequency: { value: 0 }, type: 'sine',
+        start: vi.fn(), stop: vi.fn(),
+      }));
+      this.createGain = vi.fn(() => ({
+        connect: vi.fn(),
+        gain: { setValueAtTime: vi.fn(), exponentialRampToValueAtTime: vi.fn() },
+      }));
+    });
+    global.webkitAudioContext = mockWebkit;
+
+    const { result } = renderHook(() => useSound());
+    result.current.playTone(440, 0.5);
+    expect(mockWebkit).toHaveBeenCalled();
+
+    global.AudioContext = original;
+    delete global.webkitAudioContext;
+  });
 });

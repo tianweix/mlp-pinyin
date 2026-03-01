@@ -1,5 +1,21 @@
-import { describe, it, expect } from 'vitest';
-import { reducer, initialState } from '../context/AppContext';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { renderHook, act } from '@testing-library/react';
+import React from 'react';
+import { reducer, initialState, AppProvider, useApp } from '../context/AppContext';
+
+const mockCelebrate = vi.fn();
+vi.mock('../hooks/useSound', () => ({
+  useSound: () => ({
+    playFile: vi.fn(), speakSound: vi.fn(), speakWord: vi.fn(),
+    playTone: vi.fn(), correct: vi.fn(), wrong: vi.fn(),
+    click: vi.fn(), celebrate: mockCelebrate,
+  }),
+}));
+
+const mockRecordGameResult = vi.fn();
+vi.mock('../hooks/useProgress', () => ({
+  useProgress: () => ({ progress: {}, recordGameResult: mockRecordGameResult }),
+}));
 
 describe('AppContext reducer', () => {
   it('has correct initial state shape', () => {
@@ -75,5 +91,78 @@ describe('AppContext reducer', () => {
   it('unknown action returns state unchanged', () => {
     const state = reducer(initialState, { type: 'UNKNOWN' });
     expect(state).toBe(initialState);
+  });
+});
+
+describe('AppProvider', () => {
+  const wrapper = ({ children }) => React.createElement(AppProvider, null, children);
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('provides context with initial state via useApp()', () => {
+    const { result } = renderHook(() => useApp(), { wrapper });
+    expect(result.current.activeScreen).toBe('welcome');
+    expect(result.current.currentLevel).toBeNull();
+    expect(result.current.bubbleText).toBeNull();
+  });
+
+  it('navigate changes activeScreen and clears bubbleText', () => {
+    const { result } = renderHook(() => useApp(), { wrapper });
+    act(() => result.current.showBubble('hello'));
+    act(() => result.current.navigate('map'));
+    expect(result.current.activeScreen).toBe('map');
+    expect(result.current.bubbleText).toBeNull();
+  });
+
+  it('showBubble sets bubbleText', () => {
+    const { result } = renderHook(() => useApp(), { wrapper });
+    act(() => result.current.showBubble('你好！'));
+    expect(result.current.bubbleText).toBe('你好！');
+  });
+
+  it('showBubble auto-hides after 4500ms', () => {
+    vi.useFakeTimers();
+    const { result } = renderHook(() => useApp(), { wrapper });
+    act(() => result.current.showBubble('你好！'));
+    expect(result.current.bubbleText).toBe('你好！');
+    act(() => vi.advanceTimersByTime(4500));
+    expect(result.current.bubbleText).toBeNull();
+    vi.useRealTimers();
+  });
+
+  it('enterLevel sets currentLevel and navigates to learn', () => {
+    const { result } = renderHook(() => useApp(), { wrapper });
+    const level = { id: 'level1', subtitle: '声母', items: [] };
+    act(() => result.current.enterLevel(level));
+    expect(result.current.currentLevel).toBe(level);
+    expect(result.current.activeScreen).toBe('learn');
+  });
+
+  it('endGame with ≥90% score gives 3 stars and navigates to reward', () => {
+    const { result } = renderHook(() => useApp(), { wrapper });
+    act(() => result.current.endGame(9, 10, 'level1'));
+    expect(result.current.gameResult).toEqual({ score: 9, total: 10, stars: 3 });
+    expect(result.current.activeScreen).toBe('reward');
+    expect(mockCelebrate).toHaveBeenCalled();
+  });
+
+  it('endGame with ≥60% score gives 2 stars', () => {
+    const { result } = renderHook(() => useApp(), { wrapper });
+    act(() => result.current.endGame(6, 10, 'level1'));
+    expect(result.current.gameResult.stars).toBe(2);
+  });
+
+  it('endGame with <60% score gives 1 star', () => {
+    const { result } = renderHook(() => useApp(), { wrapper });
+    act(() => result.current.endGame(5, 10, 'level1'));
+    expect(result.current.gameResult.stars).toBe(1);
+  });
+
+  it('endGame calls recordGameResult with levelId and stars', () => {
+    const { result } = renderHook(() => useApp(), { wrapper });
+    act(() => result.current.endGame(9, 10, 'level2'));
+    expect(mockRecordGameResult).toHaveBeenCalledWith('level2', 3);
   });
 });
