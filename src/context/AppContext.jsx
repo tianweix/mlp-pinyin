@@ -5,7 +5,7 @@ import { useProgress } from '../hooks/useProgress';
 const AppContext = createContext(null);
 export const useApp = () => useContext(AppContext);
 
-function reducer(state, action) {
+export function reducer(state, action) {
   switch (action.type) {
     case 'SHOW_SCREEN':
       return { ...state, activeScreen: action.screen };
@@ -28,7 +28,7 @@ function reducer(state, action) {
   }
 }
 
-const initialState = {
+export const initialState = {
   activeScreen: 'welcome',
   currentLevel: null,
   viewedItems: new Set(),
