@@ -1,42 +1,5 @@
 import { describe, it, expect } from 'vitest';
-
-// Extract and test the reducer directly without importing the whole module
-// (which would require React context). We re-implement the reducer here to
-// avoid coupling to internal module structure.
-
-// Re-create the reducer to test its logic in isolation
-function reducer(state, action) {
-  switch (action.type) {
-    case 'SHOW_SCREEN':
-      return { ...state, activeScreen: action.screen };
-    case 'SET_LEVEL':
-      return { ...state, currentLevel: action.level, viewedItems: new Set() };
-    case 'VIEW_ITEM':
-      return { ...state, viewedItems: new Set([...state.viewedItems, action.index]) };
-    case 'SET_DETAIL_ITEM':
-      return { ...state, detailItem: action.item };
-    case 'SHOW_BUBBLE':
-      return { ...state, bubbleText: action.text };
-    case 'HIDE_BUBBLE':
-      return { ...state, bubbleText: null };
-    case 'SET_GAME_RESULT':
-      return { ...state, gameResult: action.result };
-    case 'SET_GAME_TYPE':
-      return { ...state, gameType: action.gameType };
-    default:
-      return state;
-  }
-}
-
-const initialState = {
-  activeScreen: 'welcome',
-  currentLevel: null,
-  viewedItems: new Set(),
-  detailItem: null,
-  bubbleText: null,
-  gameResult: null,
-  gameType: null,
-};
+import { reducer, initialState } from '../context/AppContext';
 
 describe('AppContext reducer', () => {
   it('has correct initial state shape', () => {
