@@ -4,7 +4,7 @@ import { useConfetti } from '../components/ConfettiContainer';
 import './RewardScreen.css';
 
 const MSGS = ['太棒了！你真厉害！', '好厉害呀！继续加油！', '非常不错！你在进步！', '真了不起！'];
-const SUBS = ['小熊猫为你骄傲！', '再接再厉，你是最棒的！', '坚持就是胜利！', '你已经是拼音小达人了！'];
+const SUBS = ['小马宝莉为你骄傲！', '再接再厉，你是最棒的！', '坚持就是胜利！', '你已经是拼音小达人了！'];
 
 export default function RewardScreen({ active }) {
   const { gameResult, sound, navigate } = useApp();
