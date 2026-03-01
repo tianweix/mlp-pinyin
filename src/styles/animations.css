@@ -11,7 +11,11 @@
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 @keyframes fall-down{0%{top:-100px}100%{top:calc(100% + 20px)}}
 @keyframes fall-sway{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(12px) rotate(4deg)}75%{transform:translateX(-12px) rotate(-4deg)}}
-@keyframes item-caught{0%{transform:scale(1);opacity:1}30%{transform:scale(1.4);opacity:1}100%{transform:scale(.2) translateY(-200px);opacity:0}}
+@keyframes item-caught{0%{transform:scale(1);opacity:1}40%{transform:scale(1.5);opacity:1}100%{transform:scale(1.8);opacity:0}}
 @keyframes sparkle-up{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-80px) scale(1.5);opacity:0}}
+@keyframes sparkle-burst{0%{transform:translate(0,0) scale(0);opacity:1}60%{opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(1.2);opacity:0}}
+@keyframes ring-expand{0%{transform:scale(0);opacity:.8;border-width:6px}100%{transform:scale(3);opacity:0;border-width:1px}}
+@keyframes catch-flash{0%{opacity:0}20%{opacity:.4}100%{opacity:0}}
+@keyframes text-pop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}40%{transform:translate(-50%,-50%) scale(1.3);opacity:1}60%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-50%) translateY(-60px) scale(.8);opacity:0}}
 @keyframes confetti-fall{0%{transform:translateY(0) rotate(0) scale(1);opacity:1}80%{opacity:1}100%{transform:translateY(105vh) rotate(720deg) scale(.5);opacity:0}}
 @keyframes star-pop{0%{opacity:0;transform:scale(0) rotate(-30deg)}100%{opacity:1;transform:scale(1) rotate(0)}}

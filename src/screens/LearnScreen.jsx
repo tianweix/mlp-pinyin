@@ -13,28 +13,14 @@ export default function LearnScreen({ active }) {
   const items = currentLevel.items;
   const total = items.length;
   const viewed = viewedItems.size;
-  const threshold = Math.min(4, total);
-  const canChallenge = viewed >= threshold;
-
   const handleCardClick = (item, index) => {
     sound.click();
     dispatch({ type: 'VIEW_ITEM', index });
     dispatch({ type: 'SET_DETAIL_ITEM', item });
   };
 
-  const handleChallenge = () => {
-    if (!canChallenge) return;
+  const startGame = (gameType) => {
     sound.click();
-    let gameType;
-    if (currentLevel.id === 4) {
-      gameType = 'tone';
-    } else if (currentLevel.id === 5) {
-      gameType = 'quiz';
-    } else if (Math.random() > 0.5 && items.length >= 4) {
-      gameType = 'catch';
-    } else {
-      gameType = 'quiz';
-    }
     dispatch({ type: 'SET_GAME_TYPE', gameType });
     navigate('game');
   };
@@ -63,13 +49,14 @@ export default function LearnScreen({ active }) {
         ))}
       </div>
       <div className="learn-actions">
-        <button
-          className="btn-challenge"
-          disabled={!canChallenge}
-          onClick={handleChallenge}
-        >
-          {canChallenge ? '开始挑战 🎮' : `再看${threshold - viewed}个就能挑战啦`}
-        </button>
+        {currentLevel.id === 4 ? (
+          <button className="btn-challenge" onClick={() => startGame('tone')}>声调挑战 🌈</button>
+        ) : (
+          <>
+            <button className="btn-challenge" onClick={() => startGame('quiz')}>听音选字 👂</button>
+            <button className="btn-challenge btn-challenge-alt" onClick={() => startGame('catch')}>接水果 🍎</button>
+          </>
+        )}
       </div>
     </div>
   );

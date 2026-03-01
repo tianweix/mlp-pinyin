@@ -86,25 +86,64 @@ export default function CatchFruitGame({ level, sound, onComplete, onProgress })
         if (answeredRef.current) return;
         if (opt.py === q.py) {
           answeredRef.current = true;
+          // Freeze current position before replacing animation
+          el.style.top = el.getBoundingClientRect().top - area.getBoundingClientRect().top + 'px';
           el.classList.add('caught');
-          sound.correct();
+          sound.celebrate();
           setScore(prev => {
             const newScore = prev + 1;
             scoreRef.current = newScore;
             return newScore;
           });
 
-          // Sparkle effect
-          for (let s = 0; s < 5; s++) {
+          const cx = parseFloat(el.style.left) + el.offsetWidth / 2;
+          const cy = el.offsetTop + el.offsetHeight / 2;
+
+          // Golden flash
+          const flash = document.createElement('div');
+          flash.className = 'catch-flash';
+          flash.style.setProperty('--cx', cx + 'px');
+          flash.style.setProperty('--cy', cy + 'px');
+          area.appendChild(flash);
+          setTimeout(() => flash.remove(), 700);
+
+          // Expanding rings
+          for (let r = 0; r < 3; r++) {
+            const ring = document.createElement('div');
+            ring.className = 'catch-ring';
+            ring.style.left = (cx - 30) + 'px';
+            ring.style.top = (cy - 30) + 'px';
+            ring.style.animationDelay = (r * 0.15) + 's';
+            ring.style.borderColor = ['#FFD700', '#FF6B6B', '#4ECDC4'][r];
+            area.appendChild(ring);
+            setTimeout(() => ring.remove(), 1200);
+          }
+
+          // Burst of sparkle particles
+          const emojis = ['⭐', '🌟', '✨', '💫', '🎉', '❤️', '🌈'];
+          for (let s = 0; s < 18; s++) {
             const sp = document.createElement('div');
             sp.className = 'catch-sparkle';
-            sp.textContent = '⭐';
-            sp.style.left = (parseFloat(el.style.left) + Math.random() * 60 - 10) + 'px';
-            sp.style.top = (el.offsetTop + Math.random() * 40) + 'px';
-            sp.style.animationDelay = (s * 0.1) + 's';
+            sp.textContent = emojis[s % emojis.length];
+            const angle = (s / 18) * Math.PI * 2;
+            const dist = 60 + Math.random() * 80;
+            sp.style.left = cx + 'px';
+            sp.style.top = cy + 'px';
+            sp.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+            sp.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+            sp.style.animationDelay = (Math.random() * 0.2) + 's';
+            sp.style.fontSize = (18 + Math.random() * 16) + 'px';
             area.appendChild(sp);
-            setTimeout(() => sp.remove(), 1000);
+            setTimeout(() => sp.remove(), 1200);
           }
+
+          // Floating "太棒了!" text
+          const texts = ['太棒了!', '好厉害!', '真棒!', '答对啦!'];
+          const txt = document.createElement('div');
+          txt.className = 'catch-text';
+          txt.textContent = texts[Math.floor(Math.random() * texts.length)];
+          area.appendChild(txt);
+          setTimeout(() => txt.remove(), 1400);
 
           // Fade other items
           area.querySelectorAll('.fall-item').forEach(f => {
@@ -113,7 +152,7 @@ export default function CatchFruitGame({ level, sound, onComplete, onProgress })
 
           setTimeout(() => {
             setCurrent(prev => prev + 1);
-          }, 1200);
+          }, 1500);
         } else {
           el.classList.add('wrong-catch');
           sound.wrong();
