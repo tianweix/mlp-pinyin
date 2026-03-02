@@ -48,13 +48,11 @@ npm run coverage
 
 ## 音频文件
 
-音频文件不随代码提交，需本地生成：
-
 ```bash
 # 从 purpleculture.net 和 GitHub 下载标准拼音 MP3
 python scripts/download_audio.py
 
-# 用 edge-tts 生成例词音频（_w 文件）
+# 用 Azure Neural TTS 生成例词音频（_w 文件）
 python scripts/generate_audio.py
 ```
 
