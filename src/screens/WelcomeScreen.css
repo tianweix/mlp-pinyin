@@ -3,7 +3,14 @@
 .welcome-sub{font-size:clamp(16px,4vw,24px);color:#555;animation:fade-up .8s ease .3s both}
 .mascot-container{width:clamp(160px,40vw,240px);animation:float-y 3s ease-in-out infinite,fade-up .8s ease .1s both;filter:drop-shadow(0 10px 20px rgba(0,0,0,.15))}
 .mascot-img{width:100%;height:auto}
-.btn-start{font-family:var(--font-cn);font-size:clamp(22px,5vw,32px);padding:16px 48px;border:none;border-radius:50px;background:linear-gradient(135deg,var(--coral),#FF8E53);color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(255,107,107,.4);animation:bounce-in .8s cubic-bezier(.68,-.55,.27,1.55) .5s both;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
-.btn-start:active{transform:scale(.95)!important;box-shadow:0 3px 10px rgba(255,107,107,.3)}
-.btn-start:hover{transform:scale(1.05);box-shadow:0 8px 25px rgba(255,107,107,.5)}
-.btn-start .shine{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.3) 50%,transparent 60%);animation:shine 3s ease-in-out infinite}
+
+.mode-buttons{display:flex;flex-direction:column;gap:14px;width:min(80%,300px);animation:fade-up .8s ease .4s both}
+.btn-mode{font-family:var(--font-cn);font-size:clamp(20px,5vw,28px);padding:14px 36px;border:none;border-radius:50px;color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-mode:active{transform:scale(.95)!important;box-shadow:0 3px 10px rgba(0,0,0,.15)}
+.btn-mode:hover{transform:scale(1.05);box-shadow:0 8px 25px rgba(0,0,0,.3)}
+.btn-mode .shine{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 40%,rgba(255,255,255,.3) 50%,transparent 60%);animation:shine 3s ease-in-out infinite}
+.mode-icon{font-size:1.2em}
+
+.btn-mode-pinyin{background:linear-gradient(135deg,var(--coral),#FF8E53);box-shadow:0 6px 20px rgba(255,107,107,.4);animation:bounce-in .8s cubic-bezier(.68,-.55,.27,1.55) .4s both}
+.btn-mode-hanzi{background:linear-gradient(135deg,#667eea,#764ba2);box-shadow:0 6px 20px rgba(102,126,234,.4);animation:bounce-in .8s cubic-bezier(.68,-.55,.27,1.55) .6s both}
+.btn-mode-english{background:linear-gradient(135deg,var(--teal),#2bc4ad);box-shadow:0 6px 20px rgba(78,205,196,.4);animation:bounce-in .8s cubic-bezier(.68,-.55,.27,1.55) .8s both}

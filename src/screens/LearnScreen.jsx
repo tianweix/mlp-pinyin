@@ -4,7 +4,7 @@ import ProgressBar from '../components/ProgressBar';
 import './LearnScreen.css';
 
 export default function LearnScreen({ active }) {
-  const { currentLevel, viewedItems, sound, dispatch, navigate, showBubble } = useApp();
+  const { currentLevel, learningMode, viewedItems, sound, dispatch, navigate, showBubble } = useApp();
 
   if (!currentLevel) {
     return <div id="screen-learn" className={`screen${active ? ' active' : ''}`} />;
@@ -49,7 +49,7 @@ export default function LearnScreen({ active }) {
         ))}
       </div>
       <div className="learn-actions">
-        {currentLevel.id === 4 ? (
+        {learningMode === 'pinyin' && currentLevel.id === 4 ? (
           <button className="btn-challenge" onClick={() => startGame('tone')}>声调挑战 🌈</button>
         ) : (
           <>

@@ -90,7 +90,7 @@ export default function ListeningQuiz({ level, sound, onComplete, onProgress }) 
 
   return (
     <>
-      <div className="quiz-prompt">听一听，选出正确的拼音</div>
+      <div className="quiz-prompt">听一听，选出正确答案</div>
       <button
         className={`quiz-speaker${playing ? ' playing' : ''}`}
         onClick={playAudio}

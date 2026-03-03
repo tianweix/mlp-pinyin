@@ -5,10 +5,14 @@ import { useProgress } from '../hooks/useProgress';
 const AppContext = createContext(null);
 export const useApp = () => useContext(AppContext);
 
+const MODE_LABELS = { pinyin: '拼音乐园', hanzi: '汉字乐园', english: '英语乐园' };
+
 export function reducer(state, action) {
   switch (action.type) {
     case 'SHOW_SCREEN':
       return { ...state, activeScreen: action.screen };
+    case 'SET_MODE':
+      return { ...state, learningMode: action.mode };
     case 'SET_LEVEL':
       return { ...state, currentLevel: action.level, viewedItems: new Set() };
     case 'VIEW_ITEM':
@@ -30,6 +34,7 @@ export function reducer(state, action) {
 
 export const initialState = {
   activeScreen: 'welcome',
+  learningMode: null,
   currentLevel: null,
   viewedItems: new Set(),
   detailItem: null,
@@ -41,7 +46,7 @@ export const initialState = {
 export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const sound = useSound();
-  const { progress, recordGameResult } = useProgress();
+  const { progress, recordGameResult } = useProgress(state.learningMode);
   const bubbleTimer = useRef(null);
 
   const showBubble = useCallback((text) => {
@@ -54,6 +59,16 @@ export function AppProvider({ children }) {
     dispatch({ type: 'SHOW_SCREEN', screen });
     dispatch({ type: 'HIDE_BUBBLE' });
   }, []);
+
+  const selectMode = useCallback((mode) => {
+    dispatch({ type: 'SET_MODE', mode });
+    navigate('map');
+    setTimeout(() => showBubble(`欢迎来到${MODE_LABELS[mode]}！\n选择一个关卡开始吧～`), 500);
+  }, [navigate, showBubble]);
+
+  const backToModeSelect = useCallback(() => {
+    navigate('welcome');
+  }, [navigate]);
 
   const enterLevel = useCallback((level) => {
     dispatch({ type: 'SET_LEVEL', level });
@@ -74,7 +89,7 @@ export function AppProvider({ children }) {
 
   const value = {
     ...state, progress, sound, dispatch,
-    navigate, enterLevel, showBubble, endGame, recordGameResult,
+    navigate, selectMode, backToModeSelect, enterLevel, showBubble, endGame, recordGameResult,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

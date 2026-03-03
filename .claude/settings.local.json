@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build)",
+      "Bash(npx vitest run)",
+      "Bash(AZURE_SPEECH_KEY=6d73ce4bf3c94095950b5461436a82cc AZURE_SPEECH_REGION=eastus python scripts/generate_hanzi_audio.py)",
+      "Bash(AZURE_SPEECH_KEY=6d73ce4bf3c94095950b5461436a82cc AZURE_SPEECH_REGION=eastus python scripts/generate_english_audio.py)",
+      "Bash(ls d:/src/mlp-pinyin/public/audio/hanzi_*)",
+      "Bash(ls d:/src/mlp-pinyin/public/audio/english_*)"
+    ]
+  }
+}

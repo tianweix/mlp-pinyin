@@ -2,12 +2,11 @@ import { useApp } from '../context/AppContext';
 import './WelcomeScreen.css';
 
 export default function WelcomeScreen({ active }) {
-  const { sound, navigate, showBubble } = useApp();
+  const { sound, selectMode } = useApp();
 
-  const handleStart = () => {
+  const handleSelectMode = (mode) => {
     sound.click();
-    navigate('map');
-    setTimeout(() => showBubble('欢迎来到拼音乐园！\n选择一个关卡开始吧～'), 500);
+    selectMode(mode);
   };
 
   return (
@@ -15,12 +14,25 @@ export default function WelcomeScreen({ active }) {
       <div className="mascot-container">
         <img src="/mascot.png" alt="Twilight Sparkle" className="mascot-img" />
       </div>
-      <div className="welcome-title">拼音乐园</div>
-      <div className="welcome-sub">和小马宝莉一起学拼音吧！</div>
-      <button className="btn-start" onClick={handleStart}>
-        开始冒险
-        <div className="shine" />
-      </button>
+      <div className="welcome-title">学习乐园</div>
+      <div className="welcome-sub">和小马宝莉一起学习吧！</div>
+      <div className="mode-buttons">
+        <button className="btn-mode btn-mode-pinyin" onClick={() => handleSelectMode('pinyin')}>
+          学拼音
+          <span className="mode-icon">📝</span>
+          <div className="shine" />
+        </button>
+        <button className="btn-mode btn-mode-hanzi" onClick={() => handleSelectMode('hanzi')}>
+          学汉字
+          <span className="mode-icon">📖</span>
+          <div className="shine" />
+        </button>
+        <button className="btn-mode btn-mode-english" onClick={() => handleSelectMode('english')}>
+          学英语
+          <span className="mode-icon">🌍</span>
+          <div className="shine" />
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useApp } from '../context/AppContext';
-import LEVELS from '../data/levels';
+import getLevels from '../data/getLevels';
 import MapNode from '../components/MapNode';
 import './MapScreen.css';
 
@@ -13,9 +13,11 @@ const NODE_POS = [
 ];
 
 const LEVEL_LABELS = ['第一关', '第二关', '第三关', '第四关', '第五关'];
+const MODE_TITLES = { pinyin: '拼音乐园', hanzi: '汉字乐园', english: '英语乐园' };
 
 export default function MapScreen({ active }) {
-  const { progress, sound, enterLevel } = useApp();
+  const { learningMode, progress, sound, enterLevel, backToModeSelect } = useApp();
+  const levels = getLevels(learningMode);
   const scrollRef = useRef(null);
   const dragState = useRef({ dragging: false, startX: 0, scrollLeft: 0 });
 
@@ -71,7 +73,8 @@ export default function MapScreen({ active }) {
   return (
     <div id="screen-map" className={`screen${active ? ' active' : ''}`}>
       <div className="map-header">
-        <div className="map-title">冒险地图</div>
+        <button className="map-back-btn" onClick={backToModeSelect}>&#8592;</button>
+        <div className="map-title">{MODE_TITLES[learningMode] || '冒险地图'}</div>
         <div className="star-count">⭐ {progress.stars}</div>
       </div>
       <div
@@ -126,7 +129,7 @@ export default function MapScreen({ active }) {
           <div className="map-float f9">⭐</div>
           <div className="map-float f10">💖</div>
 
-          {LEVELS.map((lv, i) => {
+          {levels.map((lv, i) => {
             const isCompleted = progress.completed.includes(lv.id);
             const isUnlocked = lv.id === 1 || progress.completed.includes(lv.id - 1);
             const stars = progress.levelStars[lv.id] || 0;
